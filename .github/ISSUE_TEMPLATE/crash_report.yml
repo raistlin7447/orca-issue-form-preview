@@ -136,30 +136,23 @@ body:
         Display Card: NVIDIA Quadro P400/...
     validations:
       required: false
-  - type: markdown
-    id: file_required
-    attributes:
-      value: |
-        **Please attach the following to the field below.** A crash report without logs usually cannot be acted on.
-
-          * The **project file** used when the crash happened. Export it just before or after the crash, even if the plate is empty, since we need the configuration it carries.
-            `File` -> `Save project as...`, then zip it.
-          * The whole **log folder**, zipped. `Help` -> `Show Configuration Folder` opens it, or find it at:
-            Windows: `%APPDATA%\OrcaSlicer\log` or usually `C:\Users\<your username>\AppData\Roaming\OrcaSlicer\log`
-            macOS: `$HOME/Library/Application Support/OrcaSlicer/log`
-            Linux: `$HOME/.config/OrcaSlicer/log`
-            Flatpak: `$HOME/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer/log`
-            Please zip the whole folder rather than picking out single files. On Windows the crash itself is written to a separate `crash_*.log` in there, and that is the file we need most. If the zip comes out over 25 MB, GitHub will refuse it, so attach the newest log and any `crash_*.log` on their own instead.
-          * The **operating system crash report**, on macOS and Linux. Orca Slicer cannot write its own crash log on those platforms, so this is often the only record of where it died:
-            macOS: Console.app -> Crash Reports, or `$HOME/Library/Logs/DiagnosticReports/`. The file starts with `OrcaSlicer` and ends in `.ips`. Zip it before attaching, GitHub does not accept `.ips` files.
-            Linux: start it from a terminal with `orca-slicer` (Flatpak: `flatpak run com.orcaslicer.OrcaSlicer`) and paste everything it prints when it dies. On systemd systems `coredumpctl info orca-slicer` gives a backtrace.
   - type: textarea
     id: file_uploads
     attributes:
       label: Project file, logs and crash report uploads
-      description: >
-        Attach the files using the **Paste, drop, or click to add files** control directly underneath this box.
-        Zip anything that is not a `.log`, `.txt` or image, since GitHub rejects other file types, and keep each file under 25 MB.
+      description: |
+        A crash report without logs usually cannot be acted on. Attach the files with the **Paste, drop, or click to add files** control directly underneath this box. Zip anything that is not a `.log`, `.txt` or image, since GitHub rejects other file types, and keep each file under 25 MB.
+
+        * The **project file** used when the crash happened. Export it just before or after the crash, even if the plate is empty, since we need the configuration it carries. `File` -> `Save project as...`, then zip it.
+        * The whole **log folder**, zipped. `Help` -> `Show Configuration Folder` opens it, or find it at:
+          Windows: `%APPDATA%\OrcaSlicer\log` or usually `C:\Users\<your username>\AppData\Roaming\OrcaSlicer\log`
+          macOS: `$HOME/Library/Application Support/OrcaSlicer/log`
+          Linux: `$HOME/.config/OrcaSlicer/log`
+          Flatpak: `$HOME/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer/log`
+          Please zip the whole folder rather than picking out single files. On Windows the crash itself is written to a separate `crash_*.log` in there, and that is the file we need most. If the zip comes out over 25 MB, GitHub will refuse it, so attach the newest log and any `crash_*.log` on their own instead.
+        * The **operating system crash report**, on macOS and Linux. Orca Slicer cannot write its own crash log on those platforms, so this is often the only record of where it died:
+          macOS: Console.app -> Crash Reports, or `$HOME/Library/Logs/DiagnosticReports/`. The file starts with `OrcaSlicer` and ends in `.ips`. Zip it before attaching, GitHub does not accept `.ips` files.
+          Linux: start it from a terminal with `orca-slicer` (Flatpak: `flatpak run com.orcaslicer.OrcaSlicer`) and paste everything it prints when it dies. On systemd systems `coredumpctl info orca-slicer` gives a backtrace.
       placeholder: |
         Zipped project file
         Zipped log folder
