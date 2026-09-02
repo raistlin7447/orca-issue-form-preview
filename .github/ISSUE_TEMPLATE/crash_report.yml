@@ -1,0 +1,184 @@
+name: 💥 Crash Report
+description: Report Orca Slicer crashing, freezing or hanging
+labels: ["bug", "crash"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for taking the time to report a crash.**
+
+        Use this form when Orca Slicer closes on its own, freezes, or stops responding.
+        If the application stays open and only produces a wrong result, please use the [Bug report](https://github.com/OrcaSlicer/OrcaSlicer/issues/new?assignees=&labels=&projects=&template=bug_report.yml) form instead.
+
+        Before filing, please check if the issue already exists (either open or closed) by using the search bar on the issues page. If it does, comment there. Even if it's closed, we can reopen it based on your comment.
+  - type: checkboxes
+    attributes:
+      label: Is this crash reproducible in the latest nightly build?
+      description: >
+        Please verify this crash still happens in the latest nightly build first. It may already be fixed there:
+        [Nightly builds](https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/nightly-builds).
+      options:
+        - label: I have checked the latest nightly build and the crash is still reproducible
+          required: true
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this crash?
+      description: Please search to see if an issue already exists for the crash you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: OrcaSlicer Version
+      description: Which version of Orca Slicer are you running? You can see the full version in `Help` -> `About Orca Slicer`.
+      placeholder: e.g. 2.5.0
+    validations:
+      required: true
+  - type: input
+    id: working_version
+    attributes:
+      label: Regression compared to a previous version
+      description: Did it work in a previous version?
+      placeholder: e.g. 2.3.2
+    validations:
+      required: false
+  - type: dropdown
+    id: os_type
+    attributes:
+      label: "Operating System (OS)"
+      description: "What OSes are you seeing the crash on?"
+      multiple: true
+      options:
+        - Linux
+        - macOS
+        - Windows
+    validations:
+      required: true
+  - type: input
+    id: os_version
+    attributes:
+      label: "OS Version"
+      description: "What OS version does this relate to?"
+      placeholder: "i.e. OS: Windows 7/8/10/11 ..., Ubuntu 22.04/Fedora 36 ..., macOS 10.15/11.1/12.3 ..."
+    validations:
+      required: true
+  - type: input
+    id: printer
+    attributes:
+      label: Printer
+      description: Which printer was selected
+      placeholder: Voron 2.4/VzBot/Prusa MK4/Bambu Lab X1 series/Bambu Lab P1P/...
+    validations:
+      required: true
+  - type: dropdown
+    id: crash_moment
+    attributes:
+      label: When does the crash happen?
+      description: Pick the point where Orca Slicer stops working.
+      options:
+        - On startup, before the main window appears
+        - When opening or importing a project or model
+        - While slicing
+        - When exporting G-code or sending to the printer
+        - While using a specific tool, dialog or settings page
+        - When closing the application
+        - No clear pattern
+    validations:
+      required: true
+  - type: dropdown
+    id: crash_frequency
+    attributes:
+      label: How often does it happen?
+      options:
+        - Every time
+        - Often, but not every time
+        - Rarely
+        - It only happened once
+    validations:
+      required: true
+  - type: dropdown
+    id: fresh_config
+    attributes:
+      label: Does it still crash with a fresh configuration?
+      description: >
+        Close Orca Slicer and rename your configuration folder (`%APPDATA%\OrcaSlicer` on Windows,
+        `$HOME/Library/Application Support/OrcaSlicer` on macOS, `$HOME/.config/OrcaSlicer` on Linux),
+        then start it again. Renaming keeps your settings, so you can put the folder back afterwards.
+      options:
+        - Yes, it still crashes
+        - No, the crash goes away
+        - I have not tried this
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce_steps
+    attributes:
+      label: How to reproduce
+      description: Please describe the detailed steps that lead to the crash.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. Orca Slicer closes
+    validations:
+      required: true
+  - type: textarea
+    id: system_info
+    attributes:
+      label: Additional system information
+      description: >
+        Display card and driver version are worth adding for crashes on startup or in the 3D view.
+        CPU and memory are worth adding for crashes while slicing.
+      placeholder: |
+        CPU: 11th gen Intel r core tm i7-1185g7/AMD Ryzen 7 6800h/...
+        Memory: 32/16 GB...
+        Display Card: NVIDIA Quadro P400/...
+    validations:
+      required: false
+  - type: markdown
+    id: file_required
+    attributes:
+      value: |
+        Please attach as much of the following as you can. A crash report without logs is usually not actionable.
+
+          * The **project file** used when the crash happened. Export it just before or after the crash, even if there is no object on the plate, since we need the configuration it carries.
+            You can export it from the application menu in `File` -> `Save project as...`, then zip it.
+          * The whole **log folder**, zipped. Please zip the folder rather than picking out single files:
+            Windows: `%APPDATA%\OrcaSlicer\log` or usually `C:\Users\<your username>\AppData\Roaming\OrcaSlicer\log`
+            macOS: `$HOME/Library/Application Support/OrcaSlicer/log`
+            Linux: `$HOME/.config/OrcaSlicer/log`
+            Flatpak: `$HOME/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer/log`
+            If Orca Slicer still starts, you can reach this directory from the application menu in `Help` -> `Show Configuration Folder`.
+            On Windows the crash itself is written to a separate `crash_*.log` in that folder, which is why the whole folder is more useful than the newest file alone.
+          * The **operating system crash report**, on macOS and Linux. Orca Slicer cannot write its own crash log on those platforms, so this is often the only record of where it died:
+            macOS: Console.app -> Crash Reports, or `$HOME/Library/Logs/DiagnosticReports/`. The file starts with `OrcaSlicer` and ends in `.ips`.
+            Linux: start it from a terminal with `orca-slicer` (Flatpak: `flatpak run com.orcaslicer.OrcaSlicer`) and paste everything it prints when it dies. On systemd systems `coredumpctl info orca-slicer` gives a backtrace.
+  - type: textarea
+    id: file_uploads
+    attributes:
+      label: Project file, logs and crash report uploads
+      description: Drop the project file, the zipped log folder and any operating system crash report here.
+      placeholder: |
+        Project File: `File` -> `Save project as...` then zip it & drop it here
+        Log Folder: `Help` -> `Show Configuration Folder`, then zip the `log` directory and drop the zip here
+        Crash report: macOS `.ips` file, or the terminal output on Linux
+    validations:
+      required: true
+  - type: checkboxes
+    id: file_checklist
+    attributes:
+      label: Checklist of files to include
+      options:
+        - label: Log folder
+        - label: Project file
+        - label: Operating system crash report (macOS and Linux)
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Screenshots? References? Anything that will give us more context about the crash you are encountering!
+
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
