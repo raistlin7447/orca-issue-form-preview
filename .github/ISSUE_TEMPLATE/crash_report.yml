@@ -77,6 +77,7 @@ body:
       label: When does the crash happen?
       description: Pick the point where Orca Slicer stops working.
       options:
+        - Not sure
         - On startup, before the main window appears
         - When opening or importing a project or model
         - While slicing
@@ -91,6 +92,7 @@ body:
     attributes:
       label: How often does it happen?
       options:
+        - Not sure
         - Every time
         - Often, but not every time
         - Rarely
@@ -106,9 +108,9 @@ body:
         `$HOME/Library/Application Support/OrcaSlicer` on macOS, `$HOME/.config/OrcaSlicer` on Linux),
         then start it again. Renaming keeps your settings, so you can put the folder back afterwards.
       options:
+        - I have not tried this
         - Yes, it still crashes
         - No, the crash goes away
-        - I have not tried this
     validations:
       required: true
   - type: textarea
@@ -144,11 +146,12 @@ body:
         A crash report without logs usually cannot be acted on. Attach the files with the **Paste, drop, or click to add files** control directly underneath this box. Zip anything that is not a `.log`, `.txt` or image, since GitHub rejects other file types, and keep each file under 25 MB.
 
         * The **project file** used when the crash happened, zipped. Export it just before or after the crash, even if the plate is empty, since we need the configuration it carries. `File` -> `Save project as...`
-        * The whole **log folder**, zipped rather than single files picked out of it. On Windows the crash itself is written to a separate `crash_*.log` in there, and that is the file we need most. If the zip comes out over 25 MB GitHub will refuse it, so attach the newest log and any `crash_*.log` on their own instead. `Help` -> `Show Configuration Folder` opens the folder, or find it at:
+        * The whole **log folder**, zipped rather than single files picked out of it. `Help` -> `Show Configuration Folder` opens it, or find it at:
           * Windows: `%APPDATA%\OrcaSlicer\log`, usually `C:\Users\<you>\AppData\Roaming\OrcaSlicer\log`
           * macOS: `$HOME/Library/Application Support/OrcaSlicer/log`
           * Linux: `$HOME/.config/OrcaSlicer/log`
           * Flatpak: `$HOME/.var/app/com.orcaslicer.OrcaSlicer/config/OrcaSlicer/log`
+          * On Windows the crash itself is written to a separate `crash_*.log` in there, and that is the file we need most. If the zip comes out over 25 MB GitHub will refuse it, so attach the newest log and any `crash_*.log` on their own instead.
         * The **operating system crash report**, on macOS and Linux, where Orca Slicer cannot write its own crash log. It is often the only record of where it died:
           * macOS: Console.app -> Crash Reports, or `$HOME/Library/Logs/DiagnosticReports/`. The file starts with `OrcaSlicer` and ends in `.ips`. Zip it before attaching, GitHub does not accept `.ips` files.
           * Linux: run `orca-slicer` from a terminal (Flatpak: `flatpak run com.orcaslicer.OrcaSlicer`) and paste everything it prints when it dies. On systemd systems `coredumpctl info orca-slicer` gives a backtrace.
@@ -171,7 +174,5 @@ body:
       label: Anything else?
       description: |
         Screenshots? References? Anything that will give us more context about the crash you are encountering!
-
-        Tip: attach images or logs with the **Paste, drop, or click to add files** control underneath the box.
     validations:
       required: false
