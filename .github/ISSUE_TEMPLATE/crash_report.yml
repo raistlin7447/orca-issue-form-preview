@@ -77,6 +77,7 @@ body:
       label: When does the crash happen?
       description: Pick the point where Orca Slicer stops working.
       options:
+        - Not sure
         - On startup, before the main window appears
         - When opening or importing a project or model
         - While slicing
@@ -91,6 +92,7 @@ body:
     attributes:
       label: How often does it happen?
       options:
+        - Not sure
         - Every time
         - Often, but not every time
         - Rarely
@@ -106,9 +108,9 @@ body:
         `$HOME/Library/Application Support/OrcaSlicer` on macOS, `$HOME/.config/OrcaSlicer` on Linux),
         then start it again. Renaming keeps your settings, so you can put the folder back afterwards.
       options:
+        - I have not tried this
         - Yes, it still crashes
         - No, the crash goes away
-        - I have not tried this
     validations:
       required: true
   - type: textarea
