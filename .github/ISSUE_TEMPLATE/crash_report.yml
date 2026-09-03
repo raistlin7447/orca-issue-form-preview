@@ -1,6 +1,6 @@
 name: 💥 Crash Report
 description: Orca Slicer closes on its own, freezes or stops responding
-labels: ["bug", "crash"]
+labels: ["crash"]
 body:
   - type: markdown
     attributes:
